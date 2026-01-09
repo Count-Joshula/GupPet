@@ -1,0 +1,9 @@
+# OS/editor noise
+.DS_Store
+Thumbs.db
+*.log
+
+# Never commit WoW account data
+WTF/
+Cache/
+Screenshots/
