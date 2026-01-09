@@ -1,0 +1,32 @@
+--[[MountTypes
+                    230 for most ground mounts
+                    231 for Riding Turtle and Sea Turtle
+                    232 for Vashj'ir Seahorse (was named Abyssal Seahorse prior to Warlords of Draenor)
+                    241 for Blue, Green, Red, and Yellow Qiraji Battle Tank (restricted to use inside Temple of Ahn'Qiraj)
+                    242 for Swift Spectral mounts (hidden in the mount journal, used while dead in certain zones)
+                    247 for Red Flying Cloud
+                    248 for most flying mounts, including those that change capability based on riding skill
+                    254 for Subdued Seahorse, Brinedeep Bottom-Feeder, and Fathom Dweller
+                    284 for Chauffeured Mekgineer's Chopper and Chauffeured Mechano-Hog
+					
+					402
+					407
+					408
+					411
+					412
+					424
+					426
+					430
+					436
+					437
+					442
+					444
+					445
+					446
+					447
+
+
+					
+					]]
+					
+In looking over the lua file, I noticed a section where the original author added mounts that appear to be profession-specific, but in looking those up, it doesn't look like any of them are limited to profession. For example, tailors can make Flying Carpet, but anyone can use them. Is that section necessary

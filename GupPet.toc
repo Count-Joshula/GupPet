@@ -1,0 +1,33 @@
+## Interface: 110207
+## Title: GupPet
+## Author: Jables
+## Version: 1.0
+## Notes: Version number reflects my passes at this. Mount and Companion Pet Manager
+## SavedVariablesPerCharacter: GUPPET_SAVEDDATA, GUPPET_SAVEDLOCATIONS, GUPPET_OPTIONS
+## IconTexture: Interface\Icons\INV_pet_magicalcradadbox
+
+# --- Libraries ---
+Libs\LibPetJournal-2.0\LibStub.lua
+Libs\LibPetJournal-2.0\CallbackHandler-1.0.lua
+Libs\LibPetJournal-2.0\LibPetJournal-2.0.lua
+
+# --- Localization ---
+localization.lua
+
+# --- Core (Must load first to define Variables and Templates) ---
+GupPet.lua
+
+
+# --- Interface (Depends on Core Templates) ---
+
+GupPet_Interface.lua
+GupPet_Interface_IngameButtons.lua
+GupPet.xml
+GupPet_Interface_IngameButtons.xml
+
+# --- Logic & Data ---
+Gup_MountData.lua
+GupPet_Data.lua
+GupP_Mount.lua
+GupPet_Companion.lua
+GupPet_AutoCompanion.lua
