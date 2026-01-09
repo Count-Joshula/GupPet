@@ -50,7 +50,37 @@
 		</Scripts>
 	</Button>
 
-	<Button name="GupPet_SmallButtonTemplate" FrameLevel="20" virtual="true" >
+	
+		<!-- Modern tab shims: OptionsFrameTabButtonTemplate doesn't always populate .Text/.Left/.Right on retail. -->
+		<Button name="GupPet_TabButtonTemplate" virtual="true" inherits="OptionsFrameTabButtonTemplate">
+			<Scripts>
+				<OnShow>
+					local n = self:GetName()
+					if n then
+						-- Bridge older $parent regions to modern .Text/.Left/.Right expectations
+						local text = self.Text or _G[n .. "Text"] or (self.GetFontString and self:GetFontString())
+						self.Text = text
+						self.Left = self.Left or _G[n .. "Left"]
+						self.Middle = self.Middle or _G[n .. "Middle"]
+						self.Right = self.Right or _G[n .. "Right"]
+						self.LeftDisabled = self.LeftDisabled or _G[n .. "LeftDisabled"]
+						self.MiddleDisabled = self.MiddleDisabled or _G[n .. "MiddleDisabled"]
+						self.RightDisabled = self.RightDisabled or _G[n .. "RightDisabled"]
+						self.LeftActive = self.LeftActive or _G[n .. "LeftActive"]
+						self.MiddleActive = self.MiddleActive or _G[n .. "MiddleActive"]
+						self.RightActive = self.RightActive or _G[n .. "RightActive"]
+						self.HighlightTexture = self.HighlightTexture or _G[n .. "HighlightTexture"]
+					end
+					if not self.Text then return end
+					-- Keep historical layout steadier: older templates enforced a minimum width.
+					self.minWidth = self.minWidth or 80
+					PanelTemplates_TabResize(self, 0, self.absoluteSize, self.minWidth, self.maxWidth, self.absoluteTextSize)
+					if self.Text.SetJustifyH then self.Text:SetJustifyH("CENTER") end
+				</OnShow>
+			</Scripts>
+		</Button>
+
+<Button name="GupPet_SmallButtonTemplate" FrameLevel="20" virtual="true" >
 		<Size>
 			<AbsDimension x="32" y="32"/>
 		</Size>
@@ -517,7 +547,7 @@
 							</Anchor>
 						</Anchors>
 						<Frames>
-							<Button name="$parentTabAdd"    inherits="OptionsFrameTabButtonTemplate" text="Add" id="1">
+							<Button name="$parentTabAdd"    inherits="GupPet_TabButtonTemplate" text="Add" id="1">
 								<Anchors>
 									<Anchor point="BOTTOMLEFT" relativePoint="TOPLEFT">
 										<Offset>
@@ -560,7 +590,7 @@
 									</OnClick>
 								</Scripts>
 							</Button>
-							<Button name="$parentTabRemove"    inherits="OptionsFrameTabButtonTemplate" text="Remove" id="2">
+							<Button name="$parentTabRemove"    inherits="GupPet_TabButtonTemplate" text="Remove" id="2">
 								<Anchors>
 									<Anchor point="LEFT" relativeTo="$parentTabAdd" relativePoint="RIGHT">
 										<Offset>
@@ -693,7 +723,7 @@
 								All The Tabs
 							-->
 
-							<Button name="$parentTabAquatic"    inherits="OptionsFrameTabButtonTemplate" text="Aquatic" id="0">
+							<Button name="$parentTabAquatic"    inherits="GupPet_TabButtonTemplate" text="Aquatic" id="0">
 								<Anchors>
 									<Anchor point="BOTTOMLEFT"   relativePoint="TOPLEFT">
 										<Offset>
@@ -718,7 +748,7 @@
 							</Button>
 
 
-							<Button name="$parentTabGround"    inherits="OptionsFrameTabButtonTemplate" text="Ground" id="1">
+							<Button name="$parentTabGround"    inherits="GupPet_TabButtonTemplate" text="Ground" id="1">
 								<Anchors>
 									<Anchor point="LEFT" relativeTo="$parentTabAquatic" relativePoint="RIGHT">
 										<Offset>
@@ -745,7 +775,7 @@
 							</Button>
 
 
-							<Button name="$parentTabFly"    inherits="OptionsFrameTabButtonTemplate" text="Fly" id="4">
+							<Button name="$parentTabFly"    inherits="GupPet_TabButtonTemplate" text="Fly" id="4">
 								<Anchors>
 									<Anchor point="LEFT" relativeTo="$parentTabGround" relativePoint="RIGHT">
 										<Offset>
@@ -769,7 +799,7 @@
 								</Scripts>
 							</Button>
 
-							<Button name="$parentTabCompanion"    inherits="OptionsFrameTabButtonTemplate" text="Companion" id="5">
+							<Button name="$parentTabCompanion"    inherits="GupPet_TabButtonTemplate" text="Companion" id="5">
 								<Anchors>
 									<Anchor point="LEFT" relativeTo="$parentTabFly" relativePoint="RIGHT">
 										<Offset>
@@ -806,7 +836,7 @@
 			<!--
 				Make some Tabs
 			 -->
-			<Button name="$parentTab1"     inherits="OptionsFrameTabButtonTemplate" text="Options" id="1">
+			<Button name="$parentTab1"     inherits="GupPet_TabButtonTemplate" text="Options" id="1">
 				<Anchors>
 					<Anchor point="BOTTOMLEFT"   relativePoint="TOPLEFT">
 						<Offset>
@@ -831,7 +861,7 @@
 				</Scripts>
 			</Button>
 
-			<Button name="$parentTab2" inherits="OptionsFrameTabButtonTemplate" text="Mounts+Pets" id="2">
+			<Button name="$parentTab2" inherits="GupPet_TabButtonTemplate" text="Mounts+Pets" id="2">
 				<Anchors>
 					<Anchor point="LEFT" relativeTo="$parentTab1" relativePoint="RIGHT">
 						<Offset>
@@ -856,7 +886,7 @@
 
 
 
-			<Button name="$parentTab4"    inherits="OptionsFrameTabButtonTemplate" text="Close" id="4">
+			<Button name="$parentTab4"    inherits="GupPet_TabButtonTemplate" text="Close" id="4">
 				<Anchors>
 					<Anchor point="BOTTOMLEFT"   relativePoint="TOPRIGHT">
 						<Offset>
@@ -879,7 +909,7 @@
 
 
 
-			<Button name="$parentTab3"    inherits="OptionsFrameTabButtonTemplate" text="HELP" id="3">
+			<Button name="$parentTab3"    inherits="GupPet_TabButtonTemplate" text="HELP" id="3">
 				<Anchors>
 					<Anchor point="RIGHT" relativeTo="$parentTab4" relativePoint="LEFT">
 						<Offset>
@@ -1074,7 +1104,7 @@
 -->
 		<Frames>
 
-			<Button name="$parentTab1"  inherits="OptionsFrameTabButtonTemplate" text="" id="1">
+			<Button name="$parentTab1"  inherits="GupPet_TabButtonTemplate" text="" id="1">
 				<Anchors>
 					<Anchor point="BOTTOMLEFT"   relativePoint="TOPLEFT">
 						<Offset>
@@ -1095,7 +1125,7 @@
 				</Scripts>
 			</Button>
 
-			<Button name="$parentTab2"    inherits="OptionsFrameTabButtonTemplate" text="" id="1">
+			<Button name="$parentTab2"    inherits="GupPet_TabButtonTemplate" text="" id="1">
 				<Anchors>
 					<Anchor point="LEFT" relativeTo="$parentTab1" relativePoint="RIGHT">
 						<Offset>
@@ -1115,7 +1145,7 @@
 				</Scripts>
 			</Button>
 
-			<Button name="$parentTab3"    inherits="OptionsFrameTabButtonTemplate" text="" id="1">
+			<Button name="$parentTab3"    inherits="GupPet_TabButtonTemplate" text="" id="1">
 				<Anchors>
 					<Anchor point="LEFT" relativeTo="$parentTab2" relativePoint="RIGHT">
 						<Offset>
@@ -1135,7 +1165,7 @@
 				</Scripts>
 			</Button>
 
-			<Button name="$parentTab4"    inherits="OptionsFrameTabButtonTemplate" text="" id="1">
+			<Button name="$parentTab4"    inherits="GupPet_TabButtonTemplate" text="" id="1">
 				<Anchors>
 					<Anchor point="LEFT" relativeTo="$parentTab3" relativePoint="RIGHT">
 						<Offset>
